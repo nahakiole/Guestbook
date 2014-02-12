@@ -31,6 +31,12 @@ class HTMLView implements Viewable
         $this->template = new HTMLTemplate($templateFile);
     }
 
+    public function addTemplate($name, $templateFile){
+        if (isset($templates[$name])){
+            $templates[$name] = new HTMLTemplate($templateFile);
+        }
+    }
+
     /**
      * Renders the view.
      */
@@ -46,6 +52,5 @@ class HTMLView implements Viewable
         }
         return $outputFile;
     }
-
 
 } 
