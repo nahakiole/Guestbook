@@ -22,6 +22,7 @@ class Comment extends Controller {
     {
         $this->template = new HTMLView('View/Templates/index.html');
         $this->template->addTemplate('COMMENTS', new HTMLTemplateBlock('View/Templates/comment.html') );
+        $this->template->getTemplate('COMMENTS')->setBlockVariable('COMMENT_NAME', 'Robin');
         $this->template->getTemplate('COMMENTS')->preRender();
         $this->template->getTemplate('COMMENTS')->nextBlock();
         return $this->template;

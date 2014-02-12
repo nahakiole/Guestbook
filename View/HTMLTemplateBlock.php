@@ -18,7 +18,7 @@ class HTMLTemplateBlock extends HTMLTemplate
 
     public function setBlockVariable($name, $value)
     {
-        $this->blockVariables[$name] = $values;
+        $this->blockVariables[$name] = $value;
     }
 
     public function nextBlock()
