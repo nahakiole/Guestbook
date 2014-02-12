@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+    </style>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Guestbook Simulator 2014</a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+        </div>
+        <!--/.navbar-collapse -->
+    </div>
+</div>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Willkommen bei unserem Gästebuch</h1>
+
+        <p>Bitte trage dich ein oder lies die anderen spannenden Beiträge.</p>
+
+        <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-lg-3">
+            <form action="index.php" method="post">
+                <label for="name">Name<br/>
+                </label>
+                <input class="form-control" type="text" id="name" name="guestbook[name]"/><br/>
+                <label for="place">Ort<br/>
+                </label>
+                <input class="form-control" type="text" id="place" name="guestbook[place]"/><br/>
+                <label for="email">E-Mail<br/>
+                </label><input class="form-control" type="text" id="email" name="guestbook[email]"/><br/>
+                <label for="url">URL<br/>
+                </label> <input class="form-control" type="text" id="url" name="guestbook[url]"/><br/>
+                <label for="comment">Kommentar </label><br/>
+                <textarea class="form-control" rows="5" cols="10" id="comment" name="guestbook[comment]"></textarea>
+                <br/>
+                <input class="btn btn-success " type="submit" value="Eintragen" name="submit"/>
+            </form>
+        </div>
+        <div class="col-lg-9">
+            <div class="comment col-lg-12">
+
+                <h2>Kommentare</h2>
+            </div>
+            {COMMENTS}
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; Company 2013</p>
+    </footer>
+</div>
+<!-- /container -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+<script src="js/main.js"></script>
+
+
+</body>
+</html>
