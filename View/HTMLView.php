@@ -36,15 +36,12 @@ class HTMLView implements Viewable
      */
     public function render()
     {
-        $outputFile = file_get_contents($this->template->templateFile);
+        $outputFile = $this->template->render();
         if (isset($this->header)) {
             header($this->header);
         }
         foreach ($this->templates as $templateName => $template) {
-            $templateFile = file_get_contents($template->templateFile);
-            foreach ($template->variables as $placeholder => $value) {
-                $templateFile = str_replace('{' . $placeholder . '}', $value, $templateFile);
-            }
+            $templateFile = $template->render();
             $outputFile = str_replace('{' . $templateName . '}', $templateFile, $outputFile);
         }
         return $outputFile;
