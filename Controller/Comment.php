@@ -9,15 +9,19 @@
 namespace Controller;
 
 
+use View\HTMLTemplate;
+use View\HTMLView;
+
 class Comment extends Controller {
-    protected $routing = [
+    public $routing = [
         'default' => 'Overview'
     ];
 
     public function Overview()
     {
-
-        echo file_get_contents('View/index.html');
+        $this->template = new HTMLView('View/Templates/index.html');
+        $this->template->addTemplate('COMMENTS', 'View/Templates/comment.html');
+        return $this->template;
     }
 
 } 

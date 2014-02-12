@@ -18,7 +18,7 @@ class HTMLTemplate
      * List with placeholders
      * @var array
      */
-    public $variables;
+    public $variables = [];
 
     /**
      * @param Every Template has to be based on a templatefile

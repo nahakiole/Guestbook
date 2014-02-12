@@ -12,7 +12,7 @@ class Controller {
      * @var \mysqli
      */
     protected $db;
-    protected $routing;
+    public  $routing;
     /**
      * @var \View\Viewable
      */
@@ -21,6 +21,5 @@ class Controller {
     public function __construct($db,$act)
     {
         $this->db = $db;
-        call_user_func(array($this, $this->routing[$act]));
     }
 } 

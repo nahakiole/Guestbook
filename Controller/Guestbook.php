@@ -3,6 +3,8 @@
 namespace Controller;
 require_once 'Controller/Controller.php';
 require_once 'Controller/Comment.php';
+require_once 'View/HTMLView.php';
+require_once 'View/HTMLTemplate.php';
 
 class Guestbook
 {
@@ -21,7 +23,15 @@ class Guestbook
 
             if ($this->routing[$controllerName] != null) {
                 $controllerName = $this->routing[$controllerName];
+                /**
+                 * @var $controller Controller
+                 */
                 $controller = $this->createInstance($controllerName, [$mysqli,$act]);
+                /**
+                 * @var $view \View\HTMLView
+                 */
+                $view = call_user_func(array($controller, $controller->routing[$act]));
+                echo $view->render();
             }
 
         } catch (\Exception $e) {
