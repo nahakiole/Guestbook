@@ -5,6 +5,7 @@ require_once 'Controller/Controller.php';
 require_once 'Controller/Comment.php';
 require_once 'View/HTMLView.php';
 require_once 'View/HTMLTemplate.php';
+require_once 'View/HTMLTemplateBlock.php';
 
 class Guestbook
 {

@@ -18,7 +18,7 @@ class HTMLView implements Viewable
     /**
      * @var HTMLTemplate
      */
-    private $template;
+    private  $template;
     private $header;
 
     public function setHeader($header)
@@ -31,10 +31,18 @@ class HTMLView implements Viewable
         $this->template = new HTMLTemplate($templateFile);
     }
 
-    public function addTemplate($name, $templateFile){
+    public function addTemplate($name, \View\HTMLTemplate $template){
         if (!isset($this->templates[$name])){
-            $this->templates[$name] = new HTMLTemplate($templateFile);
+            $this->templates[$name] = $template;
         }
+    }
+
+    /**
+     * @param $name
+     * @return HTMLTemplate
+     */
+    public function getTemplate($name){
+        return $this->templates[$name];
     }
 
     /**
