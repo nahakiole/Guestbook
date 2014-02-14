@@ -76,7 +76,9 @@ class HTMLTemplate
      */
     public function render()
     {
-        $this->preRender();
+        if (empty($this->renderedOutput)){
+            $this->preRender();
+        }
         return $this->renderedOutput;
     }
 
