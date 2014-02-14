@@ -31,7 +31,7 @@ class HTMLView implements Viewable
         $this->template = new HTMLTemplate($templateFile);
     }
 
-    public function addTemplate($name, \View\HTMLTemplate $template){
+    public function addTemplate($name, HTMLTemplate $template){
         if (!isset($this->templates[$name])){
             $this->templates[$name] = $template;
         }

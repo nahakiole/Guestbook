@@ -14,11 +14,10 @@ class HTMLTemplate
 
     public $templateFile;
 
-    /**
-     * List with placeholders
-     * @var array
-     */
-    public $variables = [];
+    private $preRenderedTemplate;
+    private $renderedOutput = '';
+
+    public $blockVariables = [];
 
     /**
      * @param Every Template has to be based on a templatefile
@@ -27,6 +26,39 @@ class HTMLTemplate
     {
         $this->templateFile = $templateFile;
     }
+
+    public function setBlockVariable($name, $value)
+    {
+        $this->blockVariables[$name] = $value;
+    }
+
+    public function nextBlock()
+    {
+        $this->blockVariables = [];
+    }
+
+    /**
+     * Renders the provided template with the defined variables
+     * @return string
+     */
+    public function preRender()
+    {
+        if (!isset($this->preRenderedTemplate)) {
+            $this->preRenderedTemplate = $this->renderStaticTemplate();
+        }
+        $output = $this->preRenderedTemplate;
+        foreach ($this->blockVariables as $name => $value) {
+            $output = str_replace('{' . $name . '}', $value, $output);
+        }
+        $this->renderedOutput .= $output;
+    }
+
+
+    /**
+     * List with placeholders
+     * @var array
+     */
+    public $variables = [];
 
     /**
      * Adds the provided array to the variables array.
@@ -44,6 +76,11 @@ class HTMLTemplate
      */
     public function render()
     {
+        $this->preRender();
+        return $this->renderedOutput;
+    }
+
+    public function renderStaticTemplate(){
         $templateFile = file_get_contents($this->templateFile);
         foreach ($this->variables as $placeholder => $value) {
             $templateFile = str_replace('{' . $placeholder . '}', $value, $templateFile);
