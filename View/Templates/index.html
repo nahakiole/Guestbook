@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Gästebuch</title>
+    <title>Gästebuch - {SITE_TITLE}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -50,9 +50,9 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Willkommen bei unserem Gästebuch</h1>
+        <h1>{SITE_TITLE}</h1>
 
-        <p>Bitte trage dich ein oder lies die anderen spannenden Beiträge.</p>
+        <p>{SITE_DESC}</p>
 
     </div>
 </div>
@@ -60,32 +60,8 @@
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
-        <div class="col-lg-3">
-            <form action="index.php" method="post">
-                <label for="name">Name<br/>
-                </label>
-                <input class="form-control" type="text" id="name" name="guestbook[name]"/><br/>
-                <label for="place">Ort<br/>
-                </label>
-                <input class="form-control" type="text" id="place" name="guestbook[place]"/><br/>
-                <label for="email">E-Mail<br/>
-                </label><input class="form-control" type="text" id="email" name="guestbook[email]"/><br/>
-                <label for="url">URL<br/>
-                </label> <input class="form-control" type="text" id="url" name="guestbook[url]"/><br/>
-                <label for="comment">Kommentar </label><br/>
-                <textarea class="form-control" rows="5" cols="10" id="comment" name="guestbook[comment]"></textarea>
-                <br/>
-                <input class="btn btn-success " type="submit" value="Eintragen" name="submit"/>
-            </form>
-        </div>
-        <div class="col-lg-9">
-            <div class="comment col-lg-12">
 
-                <h2>Kommentare</h2>
-            </div>
-            {COMMENTS}
-
-        </div>
+        {COMMENT_FORM}{COMMENTS}
 
     </div>
 

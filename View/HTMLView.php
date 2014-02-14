@@ -18,7 +18,7 @@ class HTMLView implements Viewable
     /**
      * @var HTMLTemplate
      */
-    private  $template;
+    public $template;
     private $header;
 
     public function setHeader($header)
@@ -31,17 +31,20 @@ class HTMLView implements Viewable
         $this->template = new HTMLTemplate($templateFile);
     }
 
-    public function addTemplate($name, HTMLTemplate $template){
-        if (!isset($this->templates[$name])){
+    public function addTemplate($name, HTMLTemplate $template)
+    {
+        if (!isset($this->templates[$name])) {
             $this->templates[$name] = $template;
         }
     }
 
     /**
      * @param $name
+     *
      * @return HTMLTemplate
      */
-    public function getTemplate($name){
+    public function getTemplate($name)
+    {
         return $this->templates[$name];
     }
 
@@ -58,6 +61,7 @@ class HTMLView implements Viewable
             $templateFile = $template->render();
             $outputFile = str_replace('{' . $templateName . '}', $templateFile, $outputFile);
         }
+        $outputFile = preg_replace('/\{[A-Z_]+\}/', '', $outputFile);
         return $outputFile;
     }
 
