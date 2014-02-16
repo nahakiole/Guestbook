@@ -1,30 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robin
- * Date: 11.02.14
- * Time: 11:17
- */
 
-namespace Model;
+namespace Model\Entity;
 
 
-class Comment
+class Comment extends Entity
 {
-    public $id;
-    public $name;
-    public $place;
-    public $mail;
-    public $url;
-    public $comment;
-
-    public function __construct($id, $name, $place, $mail, $url, $comment)
+    public function __construct($values)
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->place = $place;
-        $this->mail = $mail;
-        $this->url = $url;
-        $this->comment = $comment;
+
     }
 } 

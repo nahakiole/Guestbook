@@ -7,7 +7,6 @@
  */
 
 namespace View;
-require_once 'View/Viewable.php';
 
 class HTMLView implements Viewable
 {

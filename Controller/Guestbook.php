@@ -1,46 +1,45 @@
 <?php
 
 namespace Controller;
-require_once 'Controller/Controller.php';
-require_once 'Controller/Comment.php';
-require_once 'Controller/NotFound.php';
-require_once 'View/HTMLView.php';
-require_once 'View/HTMLTemplate.php';
-require_once 'View/JSONView.php';
 
 class Guestbook
 {
-    private $routing = [
-        'default' => '\Controller\Comment',
-        'comment' => '\Controller\Comment',
-        '404' => '\Controller\NotFound'
-    ];
+    private $routing
+        = [
+            'default' => '\Controller\Comment',
+            'comment' => '\Controller\Comment',
+            'user' => '\Controller\User',
+            'Error' => '\Controller\Error'
+        ];
 
+    /**
+     * @param $config \Config
+     */
     public function __construct()
     {
         $mysqli = new \mysqli('localhost', 'root', 'toor', 'guestbook');
         $act = isset($_GET['action']) ? $_GET['action'] : 'default';
-        $controllerName = !isset($_GET['controller']) ?  'default' : $_GET['controller'];
+        $controllerName = !isset($_GET['controller']) ? 'default' : $_GET['controller'];
         try {
             if (isset($this->routing[$controllerName])) {
-                $controllerName = isset($this->routing[$controllerName]) ? $this->routing[$controllerName] : $this->routing['default'];
-                $controller = $this->createInstance($controllerName, [$mysqli,$act]);
+                $controllerName = isset($this->routing[$controllerName]) ? $this->routing[$controllerName]
+                    : $this->routing['default'];
+                $controller = $this->createInstance($controllerName, [$mysqli]);
 
-                if (method_exists ( $controller , $controller->routing[$act] )){
+                if (isset($controller->routing[$act]) && method_exists($controller, $controller->routing[$act])) {
                     $view = call_user_func(array($controller, $controller->routing[$act]));
+                } else {
+                    throw new PageNotFoundException("Method " . $act . "not found!");
                 }
-                else {
-                    throw new PageNotFoundException("Method ".$act."not found!");
-                }
-                echo $view->render();
-            }
-            else {
-                throw new PageNotFoundException("Controller ".$controllerName." not found!");
+
+            } else {
+                throw new PageNotFoundException("Controller " . $controllerName . " not found!");
             }
         } catch (PageNotFoundException $e) {
-            echo $e->getFile().":".$e->getLine()." ".$e->getMessage();
+            $controller = new Error($mysqli);
+            $view = $controller->notFound();
         }
-
+        echo $view->render();
     }
 
     private function createInstance($class, $params)
@@ -50,6 +49,7 @@ class Guestbook
     }
 }
 
-class PageNotFoundException extends \Exception {
+class PageNotFoundException extends \Exception
+{
 
 }

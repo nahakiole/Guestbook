@@ -8,7 +8,7 @@
 
 namespace View;
 
-
-interface Viewable {
+interface Viewable
+{
     public function render();
 } 

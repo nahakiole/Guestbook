@@ -9,7 +9,7 @@
 namespace View;
 
 
-class HTMLTemplate
+class HTMLTemplate implements Viewable
 {
 
     public $templateFile;
@@ -17,6 +17,12 @@ class HTMLTemplate
     private $preRenderedTemplate;
     private $renderedOutput = '';
 
+    /**
+     * List with placeholders
+     *
+     * @var array
+     */
+    public $variables = [];
     public $blockVariables = [];
 
     /**
@@ -27,21 +33,31 @@ class HTMLTemplate
         $this->templateFile = $templateFile;
     }
 
-    public function setBlockVariable($name, $value)
+
+    /**
+     * Adds the provided array to the variables array.
+     * The Key defines the placeholder and the value the value of the variable.
+     *
+     * @param $variable array
+     */
+    public function setVariable($variable)
     {
-        $this->blockVariables[$name] = $value;
+        $this->variables = array_merge($this->variables, $variable);
     }
 
-    public function nextBlock()
+    public function setBlockVariable($variable)
     {
-        $this->blockVariables = [];
+        $this->blockVariables = array_merge($this->blockVariables, $variable);
     }
 
     /**
      * Renders the provided template with the defined variables
+     *
+     * @param bool $keepBlockVariables
+     *
      * @return string
      */
-    public function preRender()
+    public function preRender($keepBlockVariables = false)
     {
         if (!isset($this->preRenderedTemplate)) {
             $this->preRenderedTemplate = $this->renderStaticTemplate();
@@ -51,38 +67,26 @@ class HTMLTemplate
             $output = str_replace('{' . $name . '}', $value, $output);
         }
         $this->renderedOutput .= $output;
-    }
-
-
-    /**
-     * List with placeholders
-     * @var array
-     */
-    public $variables = [];
-
-    /**
-     * Adds the provided array to the variables array.
-     * The Key defines the placeholder and the value the value of the variable.
-     * @param $variable array
-     */
-    public function setVariable($variable)
-    {
-        $this->variables = array_merge($this->variables, $variable);
+        if (!$keepBlockVariables) {
+            $this->blockVariables = [];
+        }
     }
 
     /**
      * Renders the provided template with the defined variables
+     *
      * @return string
      */
     public function render()
     {
-        if (empty($this->renderedOutput)){
+        if (empty($this->renderedOutput)) {
             $this->preRender();
         }
         return $this->renderedOutput;
     }
 
-    public function renderStaticTemplate(){
+    public function renderStaticTemplate()
+    {
         $templateFile = file_get_contents($this->templateFile);
         foreach ($this->variables as $placeholder => $value) {
             $templateFile = str_replace('{' . $placeholder . '}', $value, $templateFile);

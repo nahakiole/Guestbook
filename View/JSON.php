@@ -9,7 +9,8 @@
 namespace View;
 
 
-class JSONView implements Viewable {
+class JSON implements Viewable
+{
 
     public $jsonData = [];
 

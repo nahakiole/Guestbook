@@ -1,5 +1,7 @@
 <div class="col-lg-3">
-    <form action="index.php" method="post">
+    <h2>Eintrag hinzufügen</h2>
+
+    <form action="/comment/add" method="post" id="addComment">
         <label for="name">Name<br/>
         </label>
         <input class="form-control" type="text" id="name" name="guestbook[name]"/><br/>
@@ -13,6 +15,8 @@
         <label for="comment">Kommentar </label><br/>
         <textarea class="form-control" rows="5" cols="10" id="comment" name="guestbook[comment]"></textarea>
         <br/>
-        <input class="btn btn-success " type="submit" value="Eintragen" name="submit"/>
+
+        <div class="alert alert-danger error" style="display: none"></div>
+        <button class="btn btn-success send-comment" type="submit" value="Eintragen" name="submit">Eintragen</button>
     </form>
 </div>
