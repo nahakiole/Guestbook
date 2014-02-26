@@ -56,3 +56,7 @@ input, button, .form-control, .btn {
 p {
     margin: 10px 0;
 }
+
+.js-comment-fadein {
+    display: none;
+}

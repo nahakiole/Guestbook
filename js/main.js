@@ -1,17 +1,15 @@
 jQuery(function () {
-    jQuery('#addComment').submit(function (e) {
+    jQuery('#comment').submit(function (e) {
         jQuery('.send-comment').addClass('loading');
         jQuery.ajax({
             url: '/comment/json',
             type: "POST",
             cache: false,
+            dataType: "script",
             success: function (data) {
                 jQuery('.send-comment').removeClass('loading');
-                console.log(data);
-                jQuery('#addComment .error').html(data.message.error);
-                jQuery('#addComment .error').slideDown();
             },
-            data: jQuery('#addComment').serialize(),
+            data: jQuery('#comment').serialize(),
             error: function (xhr, status, error) {
                 console.log("error:", xhr, status, error);
             }

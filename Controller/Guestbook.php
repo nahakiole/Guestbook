@@ -12,12 +12,9 @@ class Guestbook
             'Error' => '\Controller\Error'
         ];
 
-    /**
-     * @param $config \Config
-     */
     public function __construct()
     {
-        $mysqli = new \mysqli('localhost', 'root', 'toor', 'guestbook');
+        $mysqli = new \mysqli('localhost', 'root', 'notchy', 'guestbook');
         $act = isset($_GET['action']) ? $_GET['action'] : 'default';
         $controllerName = !isset($_GET['controller']) ? 'default' : $_GET['controller'];
         try {
