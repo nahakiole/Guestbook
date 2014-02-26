@@ -84,7 +84,7 @@ class Comment extends Controller
                 ]);
             $comment->setBlockVariable(['COMMENT_VISIBLE' => 'js-comment-fadein']);
             $comment->preRender();
-            $render = str_replace("\n", '', $comment->render());
+            $render = preg_replace('/^\s+|\n|\r|\s+$/m', '', $comment->render());
             $this->template->content .= "jQuery( \".comment\" ).parent().append( '$render' );\n";
             $this->template->content .= "jQuery( \".js-comment-fadein\" ).fadeIn();\n";
         }
