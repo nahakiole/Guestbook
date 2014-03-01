@@ -14,8 +14,8 @@ class Controller
      */
     protected $template;
 
-    public function __construct($db)
-    {
-        $this->db = $db;
+
+    public function __construct(){
+
     }
 } 

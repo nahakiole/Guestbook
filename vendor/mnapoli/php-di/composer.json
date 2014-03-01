@@ -1,0 +1,27 @@
+{
+    "name": "mnapoli/php-di",
+    "type": "library",
+    "description": "PHP-DI is a Container that makes Dependency Injection as practical as possible in PHP",
+    "keywords": ["di", "dependency injection", "container"],
+    "homepage": "http://mnapoli.github.com/PHP-DI/",
+    "license": "MIT",
+    "autoload": {
+        "psr-0": {
+            "DI\\": "src/",
+            "IntegrationTests\\": "tests/",
+            "UnitTests\\": "tests/"
+        },
+        "files": [
+            "src/DI/functions.php"
+        ]
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "doctrine/annotations": "1.*",
+        "doctrine/cache": "1.*",
+        "mnapoli/phpdocreader": "~1.2",
+        "myclabs/php-enum": "1.*",
+        "ocramius/proxy-manager": "~0.3",
+        "symfony/yaml": "2.*"
+    }
+}

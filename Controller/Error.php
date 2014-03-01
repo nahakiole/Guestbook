@@ -8,8 +8,10 @@ class Error extends Controller
     public $routing
         = [
             'default' => 'notFound',
-            '404' => 'notFound'
+            '404' => 'notFound',
+            '500' => 'serverError'
         ];
+
 
     public function notFound()
     {
@@ -23,4 +25,18 @@ class Error extends Controller
         );
         return $this->template;
     }
-} 
+
+    public function serverError()
+    {
+        $this->template = new \View\HTMLView('View/Templates/index.html');
+        $this->template->setHeader('HTTP/1.0 500');
+        $this->template->template->setVariable(
+            [
+                'SITE_TITLE' => 'Da ging etwas daneben.',
+                'SITE_DESC' => 'Ein Fehler ist aufgetreten.'
+            ]
+        );
+        return $this->template;
+    }
+
+}

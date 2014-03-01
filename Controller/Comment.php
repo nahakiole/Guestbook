@@ -11,11 +11,26 @@ use View\JavascriptView;
 
 class Comment extends Controller
 {
+    /**
+     * @Inject
+     * @var \mysqli
+     */
+    public   $db;
+
     public $routing
         = [
             'default' => 'Overview',
             'json' => 'jsonAddComment'
         ];
+
+    /**
+     * @Inject
+     * @param \mysqli $db
+     */
+    public function __construct($db){
+        $this->db = $db;
+        echo $this->db->server_info;
+    }
 
     public function Overview()
     {
@@ -87,6 +102,7 @@ class Comment extends Controller
             $render = preg_replace('/^\s+|\n|\r|\s+$/m', '', $comment->render());
             $this->template->content .= "jQuery( \".comment\" ).parent().append( '$render' );\n";
             $this->template->content .= "jQuery( \".js-comment-fadein\" ).fadeIn();\n";
+            $this->template->content .= "jQuery( \"#comment .form-control\" ).val('');\n";
         }
         return $this->template;
     }

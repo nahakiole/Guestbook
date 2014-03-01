@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use DI\ContainerBuilder;
+
 class Guestbook
 {
     private $routing
@@ -14,14 +16,17 @@ class Guestbook
 
     public function __construct()
     {
-        $mysqli = new \mysqli('localhost', 'root', 'notchy', 'guestbook');
+        $containerBuilder = new ContainerBuilder();
+        $containerBuilder->addDefinitions('config.php');
+        $containerBuilder->addDefinitions('services.php');
+        $container = $containerBuilder->build();
         $act = isset($_GET['action']) ? $_GET['action'] : 'default';
         $controllerName = !isset($_GET['controller']) ? 'default' : $_GET['controller'];
         try {
             if (isset($this->routing[$controllerName])) {
                 $controllerName = isset($this->routing[$controllerName]) ? $this->routing[$controllerName]
                     : $this->routing['default'];
-                $controller = $this->createInstance($controllerName, [$mysqli]);
+                $controller = $container->get($controllerName);
 
                 if (isset($controller->routing[$act]) && method_exists($controller, $controller->routing[$act])) {
                     $view = call_user_func(array($controller, $controller->routing[$act]));
