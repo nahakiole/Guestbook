@@ -3,7 +3,7 @@ Guestbook
 
 A simple guestbook.
 
-Simple Installation:
-- Create MySQL Database
-- Import guestbook.sql into Database
-- Change credentials for MySQL in config.php
+## Installation:
+1. Create MySQL Database
+2. Import guestbook.sql into Database
+3. Change credentials for MySQL in config.php
