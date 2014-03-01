@@ -12,8 +12,8 @@ class Guestbook
     public function __construct()
     {
         $containerBuilder = new ContainerBuilder();
-        $containerBuilder->addDefinitions('Config.php');
-        $containerBuilder->addDefinitions('Services.php');
+        $containerBuilder->addDefinitions('config.php');
+        $containerBuilder->addDefinitions('services.php');
         $this->container = $containerBuilder->build();
         $router = new Router();
         try {
