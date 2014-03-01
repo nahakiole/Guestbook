@@ -9,8 +9,6 @@
 namespace Model\Entity;
 
 
-use View\Viewable;
-
 class Field
 {
     const TYPE_TEXT = 'text';
@@ -23,10 +21,10 @@ class Field
     public $value;
 
     /**
-     * @param $name
+     * @param        $name
      * @param string $type
      * @param string $validation
-     * @param bool $required
+     * @param bool   $required
      */
     public function __construct($name, $type = self::TYPE_TEXT, $validation = null, $required = true)
     {
@@ -42,13 +40,12 @@ class Field
     public function isValid()
     {
         $valid = true;
-        if ($this->required){
+        if ($this->required) {
             $valid = $valid && !empty($this->value);
         }
-        if ($this->validation == null){
+        if ($this->validation == null) {
             return $valid;
-        }
-        else {
+        } else {
             return $valid && filter_var($this->value, $this->validation);
         }
     }
@@ -62,11 +59,11 @@ class Field
             'valid' => $this->isValid() || !isset($this->value) ? '' : 'has-error'
         ];
         switch ($this->type) {
-            case self::TYPE_TEXT:
-            case self::TYPE_EMAIL:
-                return $formGenerator->getInput($this->name,$this->value,$options);
-            case self::TYPE_TEXTAREA:
-                return $formGenerator->getTextarea($this->name,$this->value,$options);
-            }
+        case self::TYPE_TEXT:
+        case self::TYPE_EMAIL:
+            return $formGenerator->getInput($this->name, $this->value, $options);
+        case self::TYPE_TEXTAREA:
+            return $formGenerator->getTextarea($this->name, $this->value, $options);
+        }
     }
 } 

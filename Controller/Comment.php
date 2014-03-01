@@ -3,7 +3,6 @@
 namespace Controller;
 
 
-use Exception\ServerErrorException;
 use Model\Entity\Field;
 use View\BootstrapGenerator;
 use View\HTMLForm;
@@ -16,7 +15,7 @@ class Comment extends Controller
      * @Inject
      * @var \mysqli
      */
-    public   $db;
+    public $db;
 
     public $routing
         = [
@@ -26,9 +25,11 @@ class Comment extends Controller
 
     /**
      * @Inject
+     *
      * @param \mysqli $db
      */
-    public function __construct($db){
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
@@ -48,24 +49,21 @@ class Comment extends Controller
             $commentForm->clearValues();
         }
 
-    /*    $this->template->addTemplate('SINGLE_COMMENT', new HTMLTemplate('View/Templates/single_comment.html'));
-        $this->template->getTemplate('SINGLE_COMMENT')->setVariable(
-            [
-                'TXT_COMMENT_NAME' => 'Name:',
-                'TXT_COMMENT_ADDRESS' => 'Adresse:',
-                'TXT_COMMENT_EMAIL' => 'E-Mail:',
-                'TXT_COMMENT_CONTENT' => 'Kommentar:'
-            ]
-        );
-        $this->template->getTemplate('SINGLE_COMMENT')->setBlockVariable(['COMMENT_NAME' => 'Robin']);
-        $this->template->getTemplate('SINGLE_COMMENT')->preRender();*/
+        /*    $this->template->addTemplate('SINGLE_COMMENT', new HTMLTemplate('View/Templates/single_comment.html'));
+            $this->template->getTemplate('SINGLE_COMMENT')->setVariable(
+                [
+                    'TXT_COMMENT_NAME' => 'Name:',
+                    'TXT_COMMENT_ADDRESS' => 'Adresse:',
+                    'TXT_COMMENT_EMAIL' => 'E-Mail:',
+                    'TXT_COMMENT_CONTENT' => 'Kommentar:'
+                ]
+            );
+            $this->template->getTemplate('SINGLE_COMMENT')->setBlockVariable(['COMMENT_NAME' => 'Robin']);
+            $this->template->getTemplate('SINGLE_COMMENT')->preRender();*/
 
         return $this->template;
     }
 
-    /**
-     *
-     */
     public function getCommentForm()
     {
         return new HTMLForm('comment', new BootstrapGenerator(), new \Model\Entity\Comment(
@@ -96,7 +94,8 @@ class Comment extends Controller
                     'COMMENT_EMAIL' => $commentForm->getField('Email')->value,
                     'COMMENT_URL' => $commentForm->getField('URL')->value,
                     'COMMENT_CONTENT' => $commentForm->getField('Kommentar')->value
-                ]);
+                ]
+            );
             $comment->setBlockVariable(['COMMENT_VISIBLE' => 'js-comment-fadein']);
             $comment->preRender();
             $render = preg_replace('/^\s+|\n|\r|\s+$/m', '', $comment->render());

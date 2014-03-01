@@ -4,7 +4,8 @@
 namespace Exception;
 
 
-abstract class ControllerException extends \Exception {
+abstract class ControllerException extends \Exception
+{
     protected $controller = '\Controller\Error';
     protected $action;
 

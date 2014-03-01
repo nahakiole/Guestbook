@@ -9,7 +9,8 @@
 namespace View;
 
 
-class JavascriptView implements Viewable {
+class JavascriptView implements Viewable
+{
 
     public $content = '';
 

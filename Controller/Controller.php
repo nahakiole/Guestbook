@@ -15,7 +15,8 @@ class Controller
     protected $template;
 
 
-    public function __construct(){
+    public function __construct()
+    {
 
     }
 } 

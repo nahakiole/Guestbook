@@ -21,7 +21,7 @@ class Guestbook
             $method = $router->getControllerMethod($controller);
             $view = $this->getView($controller, $method);
         } catch (ControllerException $e) {
-            $view = $this->getView($this->container->get($e->getController()),$e->getAction());
+            $view = $this->getView($this->container->get($e->getController()), $e->getAction());
         }
         echo $view->render();
     }

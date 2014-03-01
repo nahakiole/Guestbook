@@ -21,7 +21,7 @@ class HTMLForm implements Viewable
     /**
      * @param $name
      * @param $formGenerator HTMLGenerator
-     * @param $entity \Model\Entity\Entity
+     * @param $entity        \Model\Entity\Entity
      */
     public function __construct($name, $formGenerator, $entity)
     {
@@ -39,6 +39,7 @@ class HTMLForm implements Viewable
 
     /**
      * Returns if form is Valid.
+     *
      * @return bool
      */
     public function isValid()
@@ -52,9 +53,11 @@ class HTMLForm implements Viewable
 
     /**
      * @param $name
+     *
      * @return \Model\Entity\Field|null
      */
-    public function getField($name){
+    public function getField($name)
+    {
         foreach ($this->entity->fields as $field) {
 
             if ($field->name == $name) {
@@ -67,7 +70,8 @@ class HTMLForm implements Viewable
     /**
      * @return \Model\Entity\Entity
      */
-    public function getEntity(){
+    public function getEntity()
+    {
         return $this->entity;
     }
 
@@ -83,8 +87,7 @@ class HTMLForm implements Viewable
                     $javascript .= "jQuery('#$field->name').parent().addClass('has-error');\n";
                 }
             }
-        }
-        else {
+        } else {
 
         }
         return $javascript;

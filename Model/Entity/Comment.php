@@ -6,13 +6,13 @@ namespace Model\Entity;
 class Comment extends Entity
 {
     /**
-     * @param $name Field
-     * @param $place Field
-     * @param $mail Field
-     * @param $url Field
+     * @param $name    Field
+     * @param $place   Field
+     * @param $mail    Field
+     * @param $url     Field
      * @param $comment Field
      */
-    public function __construct($name, $place,$mail,$url,$comment)
+    public function __construct($name, $place, $mail, $url, $comment)
     {
         $this->fields[] = $name;
         $this->fields[] = $place;
