@@ -59,7 +59,7 @@ class Field
     public function render($formGenerator)
     {
         $options = [
-            'valid' => $this->isValid() ? '' : 'has-error'
+            'valid' => $this->isValid() || !isset($this->value) ? '' : 'has-error'
         ];
         switch ($this->type) {
             case self::TYPE_TEXT:
