@@ -7,50 +7,13 @@ input, button, .form-control, .btn {
 }
 
 .send-comment {
-    -webkit-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -ms-transition: 0.5s all;
-    -o-transition: 0.5s all;
-    transition: 0.5s all;
+    -webkit-transition: 0.5s background;
+    -moz-transition: 0.5s background;
+    -ms-transition: 0.5s background;
+    -o-transition: 0.5s background;
+    transition: 0.5s background;
     padding-left: 10px;
     display: block;
-}
-
-.send-comment.loading {
-    position: absolute;
-    z-index: 5;
-    padding-left: 35px;
-}
-
-.send-comment:after {
-    -webkit-transition: 0.2s 0.3s all;
-    -moz-transition: 0.2s 0.3s all;
-    -ms-transition: 0.2s 0.3s all;
-    -o-transition: 0.2s 0.3s all;
-    transition: 0.2s 0.3s all;
-    -webkit-animation: spin 2s infinite linear;
-    -moz-animation: spin 2s infinite linear;
-    -o-animation: spin 2s infinite linear;
-    animation: spin 2s infinite linear;
-    content: "\f021";
-    display: inline-block;
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    position: absolute;
-    left: 7px;
-    top: 6px;
-    z-index: 10;
-    color: #fff;
-    font-size: 20px;
-    opacity: 0;
-}
-
-.send-comment.loading:after {
-    opacity: 1;
 }
 
 p {

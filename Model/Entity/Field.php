@@ -58,12 +58,15 @@ class Field
      */
     public function render($formGenerator)
     {
+        $options = [
+            'valid' => $this->isValid() ? '' : 'has-error'
+        ];
         switch ($this->type) {
             case self::TYPE_TEXT:
             case self::TYPE_EMAIL:
-                return $formGenerator->getInput($this->name,$this->value);
+                return $formGenerator->getInput($this->name,$this->value,$options);
             case self::TYPE_TEXTAREA:
-                return $formGenerator->getTextarea($this->name,$this->value);
+                return $formGenerator->getTextarea($this->name,$this->value,$options);
             }
     }
 } 

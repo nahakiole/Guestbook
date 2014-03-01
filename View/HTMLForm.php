@@ -81,7 +81,6 @@ class HTMLForm implements Viewable
             foreach ($this->entity->fields as $field) {
                 if (!$field->isValid()) {
                     $javascript .= "jQuery('#$field->name').parent().addClass('has-error');\n";
-                    $javascript .= "console.log('#$field->name');\n";
                 }
             }
         }
@@ -100,5 +99,12 @@ class HTMLForm implements Viewable
         $output .= $this->formGenerator->getSubmit('Absenden', 'Absenden');
         $output .= "</form>";
         return $output;
+    }
+
+    public function clearValues()
+    {
+        foreach ($this->entity->fields as $field) {
+            $field->value = null;
+        }
     }
 } 

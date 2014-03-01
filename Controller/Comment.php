@@ -45,7 +45,7 @@ class Comment extends Controller
         $commentForm = $this->getCommentForm();
         $this->template->addTemplate('COMMENT_FORM', $commentForm);
         if ($commentForm->isValid()) {
-
+            $commentForm->clearValues();
         }
 
     /*    $this->template->addTemplate('SINGLE_COMMENT', new HTMLTemplate('View/Templates/single_comment.html'));

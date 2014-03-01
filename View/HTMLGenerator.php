@@ -13,9 +13,9 @@ abstract class HTMLGenerator
 {
     public $name;
 
-    abstract function getInput($name, $value);
+    abstract function getInput($name, $value,$options = []);
 
-    abstract function getTextarea($name, $value);
+    abstract function getTextarea($name, $value,$options= []);
 
-    abstract function getSubmit($name, $value);
+    abstract function getSubmit($name, $value,$options= []);
 }
