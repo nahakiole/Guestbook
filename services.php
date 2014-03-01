@@ -4,16 +4,14 @@ return [
 
 // Defines an instance of My\Class
     'mysqli' => DI\object()
-            ->constructor(DI\link('db.host'), DI\link('db.user'), DI\link('db.password'), DI\link('db.database'), DI\link('db.port'), DI\link('db.socket')),
+            ->constructor(
+                DI\link('db.host'), DI\link('db.user'), DI\link('db.password'), DI\link('db.database'),
+                DI\link('db.port'), DI\link('db.socket')
+            ),
 
-    '\Controller\Comment' => DI\object(),
-    '\Controller\Error' => DI\object(),
-    '\Controller\Router' => DI\object()
-
-//
-//    // Explicit definition of an object (unnecessary if you use autowiring)
-//    'SomeClass' => DI\object(),
-
+    'default' => DI\object('\Controller\Comment'),
+    'Error' => DI\object('\Controller\Error'),
+    'comment' => DI\object('\Controller\Comment')
 //    'My\OtherClass' => DI\object()
 //            ->scope(Scope::PROTOTYPE())
 //            ->constructor(DI\link('db.host'), DI\link('db.port'))

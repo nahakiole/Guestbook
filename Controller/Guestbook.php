@@ -22,6 +22,8 @@ class Guestbook
             $view = $this->getView($controller, $method);
         } catch (ControllerException $e) {
             $view = $this->getView($this->container->get($e->getController()), $e->getAction());
+        } catch (\DI\NotFoundException $e) {
+            $view = $this->getView($this->container->get('Error'), 'notFound');
         }
         echo $view->render();
     }

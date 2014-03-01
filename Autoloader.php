@@ -12,7 +12,10 @@ class Autoloader
 
     public function loadClass($class)
     {
-        require_once(str_replace("\\", "/", $class) . ".php");
+        $file = str_replace("\\", "/", $class) . ".php";
+        if (file_exists($file)){
+            require_once($file);
+        }
     }
 
 }

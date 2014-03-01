@@ -9,13 +9,6 @@ use Exception\PageNotFoundException;
 class Router
 {
 
-    private $routing
-        = [
-            'default' => '\Controller\Comment',
-            'comment' => '\Controller\Comment',
-            'user' => '\Controller\User',
-            'Error' => '\Controller\Error'
-        ];
 
     private $controllerName;
     private $actionName;
@@ -34,9 +27,9 @@ class Router
      */
     public function getControllerName()
     {
-        if (isset($this->routing[$this->controllerName])) {
-            return isset($this->routing[$this->controllerName]) ? $this->routing[$this->controllerName]
-                : $this->routing['default'];
+        if (isset($this->controllerName)) {
+            return isset($this->controllerName) ? $this->controllerName
+                : 'default';
         } else {
             throw new PageNotFoundException("Method " . $this->actionName . " not found!");
         }
