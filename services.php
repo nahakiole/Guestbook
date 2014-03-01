@@ -7,7 +7,8 @@ return [
             ->constructor(DI\link('db.host'), DI\link('db.user'), DI\link('db.password'), DI\link('db.database'), DI\link('db.port'), DI\link('db.socket')),
 
     '\Controller\Comment' => DI\object(),
-    '\Controller\Error' => DI\object()
+    '\Controller\Error' => DI\object(),
+    '\Controller\Router' => DI\object()
 
 //
 //    // Explicit definition of an object (unnecessary if you use autowiring)

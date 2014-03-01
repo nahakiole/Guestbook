@@ -3,6 +3,7 @@
 namespace Controller;
 
 
+use Exception\ServerErrorException;
 use Model\Entity\Field;
 use View\BootstrapGenerator;
 use View\HTMLForm;
@@ -29,7 +30,6 @@ class Comment extends Controller
      */
     public function __construct($db){
         $this->db = $db;
-        echo $this->db->server_info;
     }
 
     public function Overview()
