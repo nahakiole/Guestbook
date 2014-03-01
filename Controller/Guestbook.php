@@ -7,29 +7,33 @@ use Exception\ControllerException;
 
 class Guestbook
 {
+    private $container;
+
     public function __construct()
     {
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->addDefinitions('Config.php');
         $containerBuilder->addDefinitions('Services.php');
-        $container = $containerBuilder->build();
+        $this->container = $containerBuilder->build();
         $router = new Router();
         try {
-            $controllerName = $router->getControllerName();
-            $controller = $container->get($controllerName);
+            $controller = $this->container->get($router->getControllerName());
             $method = $router->getControllerMethod($controller);
-            $view = $controller->$method();
+            $view = $this->getView($controller, $method);
         } catch (ControllerException $e) {
-            $controller = $container->get($e->getController());
-            $method = $e->getAction();
-            $view = $controller->$method();
+            $view = $this->getView($this->container->get($e->getController()),$e->getAction());
         }
         echo $view->render();
     }
 
-    private function createInstance($class, $params)
+    /**
+     * @param $controller
+     * @param $method
+     *
+     * @return \View\Viewable
+     */
+    private function getView($controller, $method)
     {
-        $reflection_class = new \ReflectionClass($class);
-        return $reflection_class->newInstanceArgs($params);
+        return $controller->$method();
     }
 }
