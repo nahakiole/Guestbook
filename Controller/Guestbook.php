@@ -13,10 +13,7 @@ class Guestbook
         $containerBuilder->addDefinitions('Config.php');
         $containerBuilder->addDefinitions('Services.php');
         $container = $containerBuilder->build();
-
-        $act = isset($_GET['action']) ? $_GET['action'] : 'default';
-        $controllerName = !isset($_GET['controller']) ? 'default' : $_GET['controller'];
-        $router = new Router($controllerName, $act);
+        $router = new Router();
         try {
             $controllerName = $router->getControllerName();
             $controller = $container->get($controllerName);

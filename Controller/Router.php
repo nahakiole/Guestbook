@@ -4,7 +4,7 @@
 namespace Controller;
 
 
-use Exceptions\PageNotFoundException;
+use Exception\PageNotFoundException;
 
 class Router
 {
@@ -20,8 +20,10 @@ class Router
     private $controllerName;
     private $actionName;
 
-    public function __construct($controllerName, $actionName)
+    public function __construct()
     {
+        $controllerName = !isset($_GET['controller']) ? 'default' : $_GET['controller'];
+        $actionName = isset($_GET['action']) ? $_GET['action'] : 'default';
         $this->controllerName = $controllerName;
         $this->actionName = $actionName;
     }
@@ -36,15 +38,15 @@ class Router
             return isset($this->routing[$this->controllerName]) ? $this->routing[$this->controllerName]
                 : $this->routing['default'];
         } else {
-            throw new \Exception\PageNotFoundException("Method " . $this->actionName . " not found!");
+            throw new PageNotFoundException("Method " . $this->actionName . " not found!");
         }
     }
 
     /**
      * @param $controller
      *
+     * @throws \Exception\PageNotFoundException
      * @return string
-     * @throws PageNotFoundException
      */
     public function getControllerMethod($controller)
     {
