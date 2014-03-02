@@ -22,8 +22,10 @@ class Guestbook
             $method = $router->getControllerMethod($controller);
             $view = $this->getView($controller, $method);
         } catch (ControllerException $e) {
+            echo $e->getFile().":".$e->getLine();
             $view = $this->getView($this->container->get($e->getController()), $e->getAction());
         } catch (NotFoundException $e) {
+            echo $e->getFile().":".$e->getLine();
             $view = $this->getView($this->container->get('Error'), 'notFound');
         }
         echo $view->render();

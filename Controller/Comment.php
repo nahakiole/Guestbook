@@ -17,13 +17,6 @@ class Comment extends Controller
      */
     public $db;
 
-    public $routing
-        = [
-            'default' => 'Overview',
-            'Overview' => 'Overview',
-            'json' => 'jsonAddComment'
-        ];
-
     /**
      * @Inject
      *
@@ -119,6 +112,12 @@ class Comment extends Controller
             $this->template->content .= "jQuery( \".js-comment-fadein\" ).fadeIn();\n";
             $this->template->content .= "jQuery( \"#comment .form-control\" ).val('');\n";
         }
+        return $this->template;
+    }
+
+    public function checkForNewComments(){
+        $commentForm = $this->getCommentForm();
+        $this->template = new JavascriptView();
         return $this->template;
     }
 

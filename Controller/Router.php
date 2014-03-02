@@ -47,12 +47,12 @@ class Router
      */
     public function getControllerMethod($controller)
     {
-        if (isset($controller->routing[$this->actionName])
+        if (isset($this->actionName)
             && method_exists(
-                $controller, $controller->routing[$this->actionName]
+                $controller, $this->actionName
             )
         ) {
-            return $controller->routing[$this->actionName];
+            return $this->actionName;
         } else {
             throw new PageNotFoundException("Method " . $this->actionName . " not found!");
         }

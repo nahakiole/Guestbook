@@ -5,12 +5,7 @@ namespace Controller;
 
 class Error extends Controller
 {
-    public $routing
-        = [
-            'default' => 'notFound',
-            '404' => 'notFound',
-            '500' => 'serverError'
-        ];
+
 
 
     public function notFound()

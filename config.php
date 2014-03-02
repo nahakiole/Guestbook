@@ -2,5 +2,5 @@
 return [
     'db.config' => 'mysql:host=localhost;dbname=guestbook',
     'db.user' => 'root',
-    'db.password' => 'notchy'
+    'db.password' => 'toor'
 ];

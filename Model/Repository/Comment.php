@@ -19,7 +19,7 @@ class Comment extends Repository
      */
     public function findAll($limit = 0, $offset = 0)
     {
-        $statement = $this->database->query("SELECT * FROM `Entry`");
+        $statement = $this->database->query("SELECT `name`, `place`, `mail`, `url`, comment FROM `Entry`");
         if( $statement->rowCount() === 0){
             return [];
         }
@@ -37,7 +37,12 @@ class Comment extends Repository
      */
     public function findById($id)
     {
-        // TODO: Implement findById() method.
+        $statement = $this->database->query("SELECT `name`, `place`, `mail`, `url`, comment FROM `Entry` WHERE `id` = ".intval($id));
+        $comments = null;
+        while($row = $statement->fetch(\PDO::FETCH_ASSOC)){
+            $comments = $this->factory->build($row);
+        }
+        return $comments;
     }
 
 
@@ -71,13 +76,4 @@ class Comment extends Repository
         // TODO: Implement remove() method.
     }
 
-    /**
-     * @param $entity
-     *
-     * @return void
-     */
-    public function update($entity)
-    {
-        // TODO: Implement update() method.
-    }
 }

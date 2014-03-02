@@ -1,7 +1,7 @@
 jQuery(function () {
     jQuery('#comment').submit(function (e) {
         jQuery.ajax({
-            url: '/comment/json',
+            url: '/Comment/Json',
             type: "POST",
             cache: false,
             dataType: "script",

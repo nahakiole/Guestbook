@@ -59,11 +59,4 @@ abstract class Repository
      * @return void
      */
     abstract public function remove($entity);
-
-    /**
-     * @param $entity
-     *
-     * @return void
-     */
-    abstract public function update($entity);
 } 
