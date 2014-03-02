@@ -3,10 +3,9 @@ return [
 
 
 // Defines an instance of My\Class
-    'mysqli' => DI\object()
-            ->constructor(
-                DI\link('db.host'), DI\link('db.user'), DI\link('db.password'), DI\link('db.database'),
-                DI\link('db.port'), DI\link('db.socket')
+    'PDO' => DI\object()
+            ->constructor(DI\link('db.config')
+                , DI\link('db.user'), DI\link('db.password'), []
             ),
 
     'default' => DI\object('\Controller\Comment'),

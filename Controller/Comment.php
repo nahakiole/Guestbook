@@ -13,7 +13,7 @@ class Comment extends Controller
 {
     /**
      * @Inject
-     * @var \mysqli
+     * @var \PDO
      */
     public $db;
 
@@ -27,7 +27,7 @@ class Comment extends Controller
     /**
      * @Inject
      *
-     * @param \mysqli $db
+     * @param \PDO $db
      */
     public function __construct($db)
     {
@@ -47,21 +47,29 @@ class Comment extends Controller
         $commentForm = $this->getCommentForm();
         $this->template->addTemplate('COMMENT_FORM', $commentForm);
         if ($commentForm->isValid()) {
+            $this->addComment($commentForm->getEntity());
             $commentForm->clearValues();
         }
-
-        /*    $this->template->addTemplate('SINGLE_COMMENT', new HTMLTemplate('View/Templates/single_comment.html'));
-            $this->template->getTemplate('SINGLE_COMMENT')->setVariable(
-                [
-                    'TXT_COMMENT_NAME' => 'Name:',
-                    'TXT_COMMENT_ADDRESS' => 'Adresse:',
-                    'TXT_COMMENT_EMAIL' => 'E-Mail:',
-                    'TXT_COMMENT_CONTENT' => 'Kommentar:'
-                ]
-            );
-            $this->template->getTemplate('SINGLE_COMMENT')->setBlockVariable(['COMMENT_NAME' => 'Robin']);
-            $this->template->getTemplate('SINGLE_COMMENT')->preRender();*/
-
+        $this->template->addTemplate('SINGLE_COMMENT', new HTMLTemplate('View/Templates/single_comment.html'));
+        $this->template->getTemplate('SINGLE_COMMENT')->setVariable(
+            [
+                'TXT_COMMENT_NAME' => 'Name:',
+                'TXT_COMMENT_ADDRESS' => 'Adresse:',
+                'TXT_COMMENT_EMAIL' => 'E-Mail:',
+                'TXT_COMMENT_CONTENT' => 'Kommentar:'
+            ]
+        );
+        $statement = $this->db->query("SELECT * FROM `Entry`");
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            $this->template->getTemplate('SINGLE_COMMENT')->setBlockVariable([
+                'COMMENT_NAME' => $row['name'],
+                'COMMENT_ADRESS' => $row['place'],
+                'COMMENT_URL' => $row['url'],
+                'COMMENT_CONTENT' => $row['comment'],
+                'COMMENT_EMAIL' => $row['mail']
+            ]);
+            $this->template->getTemplate('SINGLE_COMMENT')->preRender();
+        }
         return $this->template;
     }
 
@@ -78,6 +86,7 @@ class Comment extends Controller
         $this->template = new JavascriptView();
         $this->template->content = $commentForm->getJavascript();
         if ($commentForm->isValid()) {
+            $this->addComment($commentForm->getEntity());
             $comment = new HTMLTemplate('View/Templates/single_comment.html');
             $comment->setVariable(
                 [
@@ -105,6 +114,20 @@ class Comment extends Controller
             $this->template->content .= "jQuery( \"#comment .form-control\" ).val('');\n";
         }
         return $this->template;
+    }
+
+    /**
+     * @param $comment \Model\Entity\Comment
+     */
+    public function addComment($comment){
+        $comment->sanatizeField();
+        $this->db->query("INSERT INTO `Entry` (`id`, `name`, `place`, `mail`, `url`, `comment`)
+        VALUES (NULL, '".$comment->getField('Name')->value."',
+         '".$comment->getField('Ort')->value."',
+         '".$comment->getField('Email')->value."',
+         '".$comment->getField('URL')->value."',
+         '".$comment->getField('Kommentar')->value."');"
+        );
     }
 
 } 
