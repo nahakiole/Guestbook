@@ -50,6 +50,9 @@ class Comment extends Controller
             $this->addComment($commentForm->getEntity());
             $commentForm->clearValues();
         }
+
+        $commentRepository = new \Model\Repository\Comment($this->db);
+        $comments = $commentRepository->findAll();
         $this->template->addTemplate('SINGLE_COMMENT', new HTMLTemplate('View/Templates/single_comment.html'));
         $this->template->getTemplate('SINGLE_COMMENT')->setVariable(
             [
@@ -59,14 +62,13 @@ class Comment extends Controller
                 'TXT_COMMENT_CONTENT' => 'Kommentar:'
             ]
         );
-        $statement = $this->db->query("SELECT * FROM `Entry`");
-        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+        foreach ($comments as $comment){
             $this->template->getTemplate('SINGLE_COMMENT')->setBlockVariable([
-                'COMMENT_NAME' => $row['name'],
-                'COMMENT_ADRESS' => $row['place'],
-                'COMMENT_URL' => $row['url'],
-                'COMMENT_CONTENT' => $row['comment'],
-                'COMMENT_EMAIL' => $row['mail']
+                'COMMENT_NAME' => $comment->getField('Name')->value,
+                'COMMENT_ADRESS' => $comment->getField('Ort')->value,
+                'COMMENT_URL' => $comment->getField('URL')->value,
+                'COMMENT_CONTENT' => $comment->getField('Kommentar')->value,
+                'COMMENT_EMAIL' => $comment->getField('Email')->value
             ]);
             $this->template->getTemplate('SINGLE_COMMENT')->preRender();
         }
@@ -76,7 +78,11 @@ class Comment extends Controller
     public function getCommentForm()
     {
         return new HTMLForm('comment', new BootstrapGenerator(), new \Model\Entity\Comment(
-            new Field('Name'), new Field('Ort'), new Field('Email', Field::TYPE_EMAIL, FILTER_VALIDATE_EMAIL), new Field('URL', Field::TYPE_TEXT, FILTER_VALIDATE_URL), new Field('Kommentar', Field::TYPE_TEXTAREA)
+            new Field('Name'),
+            new Field('Ort'),
+            new Field('Email', Field::TYPE_EMAIL, FILTER_VALIDATE_EMAIL),
+            new Field('URL', Field::TYPE_TEXT, FILTER_VALIDATE_URL),
+            new Field('Kommentar', Field::TYPE_TEXTAREA)
         ));
     }
 

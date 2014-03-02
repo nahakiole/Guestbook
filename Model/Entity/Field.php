@@ -25,13 +25,15 @@ class Field
      * @param string $type
      * @param string $validation
      * @param bool   $required
+     * @param string $value
      */
-    public function __construct($name, $type = self::TYPE_TEXT, $validation = null, $required = true)
+    public function __construct($name, $type = self::TYPE_TEXT, $validation = null, $required = true, $value = null)
     {
         $this->name = $name;
         $this->type = $type;
         $this->validation = $validation;
         $this->required = $required;
+        $this->value = $value;
     }
 
     /**
