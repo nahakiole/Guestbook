@@ -8,17 +8,19 @@ use Exception\PageNotFoundException;
 
 class Router
 {
-
-
+    /**
+     * @var \Model\Entity\Route[]
+     */
+    private $routingTable = [];
+    private $requestURI = [];
     private $controllerName;
     private $actionName;
 
-    public function __construct()
+    public function __construct($file)
     {
-        $controllerName = !isset($_GET['controller']) ? 'default' : $_GET['controller'];
-        $actionName = isset($_GET['action']) ? $_GET['action'] : 'default';
-        $this->controllerName = $controllerName;
-        $this->actionName = $actionName;
+        $file = require $file;
+        $this->routingTable = array_merge($file, $this->routingTable);
+        $this->requestURI = $_SERVER['REQUEST_URI'];
     }
 
     /**
@@ -27,12 +29,14 @@ class Router
      */
     public function getControllerName()
     {
-        if (isset($this->controllerName)) {
-            return isset($this->controllerName) ? $this->controllerName
-                : 'default';
-        } else {
-            throw new PageNotFoundException("Method " . $this->actionName . " not found!");
+        foreach ($this->routingTable as $route) {
+            $controller = $route->matchesRoute($this->requestURI);
+            if ($controller){
+                $this->actionName = $route->method;
+                return $controller;
+            }
         }
+        throw new PageNotFoundException("Not Page under $this->requestURI found");
     }
 
     /**

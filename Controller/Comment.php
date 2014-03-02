@@ -20,6 +20,7 @@ class Comment extends Controller
     public $routing
         = [
             'default' => 'Overview',
+            'Overview' => 'Overview',
             'json' => 'jsonAddComment'
         ];
 

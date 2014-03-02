@@ -3,6 +3,7 @@
 namespace Controller;
 
 use DI\ContainerBuilder;
+use DI\NotFoundException;
 use Exception\ControllerException;
 
 class Guestbook
@@ -15,14 +16,14 @@ class Guestbook
         $containerBuilder->addDefinitions('config.php');
         $containerBuilder->addDefinitions('services.php');
         $this->container = $containerBuilder->build();
-        $router = new Router();
+        $router = new Router('routes.php');
         try {
             $controller = $this->container->get($router->getControllerName());
             $method = $router->getControllerMethod($controller);
             $view = $this->getView($controller, $method);
         } catch (ControllerException $e) {
             $view = $this->getView($this->container->get($e->getController()), $e->getAction());
-        } catch (\DI\NotFoundException $e) {
+        } catch (NotFoundException $e) {
             $view = $this->getView($this->container->get('Error'), 'notFound');
         }
         echo $view->render();
