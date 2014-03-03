@@ -40,7 +40,7 @@ abstract class Repository
     abstract public function findById($id);
 
     /**
-     * @param $filter
+     * @param $filter \Model\Repository\Filter[]
      *
      * @return \Model\Entity\Entity
      */

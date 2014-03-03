@@ -19,8 +19,8 @@ class Comment extends Repository
      */
     public function findAll($limit = 0, $offset = 0)
     {
-        $statement = $this->database->query("SELECT `name`, `place`, `mail`, `url`, comment FROM `Entry`");
-        if( $statement->rowCount() === 0){
+        $statement = $this->database->query("SELECT `name`, `place`, `mail`, `url`, `comment`, `date` FROM `Entry`");
+        if($statement->rowCount() === 0){
             return [];
         }
         $comments = [];
@@ -47,13 +47,22 @@ class Comment extends Repository
 
 
     /**
-     * @param $filter
+     * @param $filter \Model\Repository\Filter[]
      *
      * @return \Model\Entity\Comment
      */
     public function findByFilter($filter)
     {
-        // TODO: Implement findByFilter() method.
+        $query = "SELECT `name`, `place`, `mail`, `url`, comment
+                                             FROM `Entry`
+                                             WHERE ".join('', $filter)."";
+        //var_dump($query);
+        $statement = $this->database->query($query);
+        $comments = [];
+        while($row = $statement->fetch(\PDO::FETCH_ASSOC)){
+            $comments[] = $this->factory->build($row);
+        }
+        return $comments;
     }
 
     /**
