@@ -27,10 +27,10 @@ jQuery(function () {
                 if (data != ''){
                     now = new Date();
                 }
-                console.log(data);
                 updateDate();
             },
             error: function (xhr, status, error) {
+                updateDate();
                 console.log("error:", xhr, status, error);
             }
         });

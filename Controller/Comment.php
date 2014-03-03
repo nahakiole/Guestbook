@@ -21,6 +21,11 @@ class Comment extends Controller
     public $db;
 
     /**
+     * @var \Model\Repository\Comment
+     */
+    private $commentRepository;
+
+    /**
      * @Inject
      *
      * @param \PDO $db
@@ -80,6 +85,9 @@ class Comment extends Controller
                 $this->template->getTemplate('SINGLE_COMMENT')->preRender();
             }
         }
+        else {
+            $this->template->getTemplate('COMMENTS')->setVariable(['NO_COMMENTS' => '<div class="col-lg-6 no-entries">Keine Einträge vorhanden</div>']);
+        }
         return $this->template;
     }
 
@@ -108,13 +116,12 @@ class Comment extends Controller
 
     public function checkForNewComments()
     {
+        set_time_limit(10);
         $commentForm = $this->getCommentForm();
         $this->template = new JavascriptView();
-        $commentRepository = new \Model\Repository\Comment($this->db);
-        $comments = $commentRepository->findByFilter([
-                new Filter('date', '>', date('Y-m-d H:i:s', intval($_GET['after'])))
-            ]
-        );
+        $this->commentRepository = new \Model\Repository\Comment($this->db);
+        $after = isset($_GET['after']) ?  intval($_GET['after']) : date('U');
+        $comments = $this->getCommentsSince($after);
         if (count($comments) > 0) {
             $commentHTML
                 = new HTMLTemplate('View/Templates/single_comment.html');
@@ -152,9 +159,12 @@ class Comment extends Controller
                 );
             }
             $this->template->content .= "jQuery( \".comment\" ).parent().append( '$render' );\n";
+            $this->template->content .= "jQuery( \".no-entries\" ).fadeOut();\n";
             $this->template->content .= "jQuery( \".js-comment-fadein\" ).fadeIn();\n";
+            $this->template->content .= "jQuery( \".single-comment\" ).removeClass(\".js-comment-fadein\");\n";
         }
         else {
+
         }
         return $this->template;
     }
@@ -175,6 +185,23 @@ class Comment extends Controller
          '" . date('Y-m-d H:i:s') . "'
          );"
         );
+    }
+
+    /**
+     * @param $after
+     *
+     * @return mixed
+     */
+    public function getCommentsSince($after){
+        $comments = $this->commentRepository->findByFilter([
+                new Filter('date', '>', date('Y-m-d H:i:s', $after))
+            ]
+        );
+        if (count($comments) == 0){
+            sleep(0.2);
+            $comments = $this->getCommentsSince($after);
+        }
+        return $comments;
     }
 
 } 
