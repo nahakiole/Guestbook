@@ -17,9 +17,54 @@ input, button, .form-control, .btn {
 }
 
 p {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .js-comment-fadein {
     display: none;
 }
+
+.single-comment {
+    padding-top: 10px;
+    -webkit-transition: 0.2s background, 0.2s -webkit-transform;
+    -moz-transition: 0.2s background, 0.2s -moz-transform;
+    -ms-transition: 0.2s background, 0.2s -ms-transform;
+    -o-transition: 0.2s background, 0.2s -o-transform;
+    transition: 0.2s background,0.2s transform;
+}
+
+.single-comment.ui-draggable-dragging {
+    border-radius: 5px;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.trash {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.single-comment.ui-draggable-dragging.remove {
+    background: rgb(238, 95, 87);
+    box-shadow: 0 0 10px rgb(238, 95, 87);
+    color: #fff;
+    -webkit-transform: scale(0.6, 0.6);
+    -moz-transform: scale(0.6, 0.6);
+    -ms-transform: scale(0.6, 0.6);
+    -o-transform: scale(0.6, 0.6);
+    transform: scale(0.6, 0.6);
+}
+
+.single-comment.ui-draggable-dragging.remove a {
+    color: #fff;
+}
+
+.single-comment.ui-draggable-dragging.remove.really {
+    -webkit-transform: scale(0.01);
+    -moz-transform: scale(0.01);
+    -ms-transform: scale(0.01);
+    -o-transform: scale(0.01);
+    transform: scale(0.01);
+}
+
