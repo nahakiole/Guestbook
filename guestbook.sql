@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `Entry` (
   `mail` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
   `comment` text NOT NULL,
+  'date' datetime NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

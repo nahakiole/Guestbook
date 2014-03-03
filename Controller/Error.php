@@ -6,7 +6,7 @@ namespace Controller;
 class Error extends Controller
 {
 
-
+    private $errorMessage = '';
 
     public function notFound()
     {
@@ -28,10 +28,18 @@ class Error extends Controller
         $this->template->template->setVariable(
             [
                 'SITE_TITLE' => 'Da ging etwas daneben.',
-                'SITE_DESC' => 'Ein Fehler ist aufgetreten.'
+                'SITE_DESC' => 'Ein Fehler ist aufgetreten.<br/>'.$this->errorMessage
             ]
         );
         return $this->template;
+    }
+
+    /**
+     * @param string $errorMessage
+     */
+    public function setErrorMessage($errorMessage)
+    {
+        $this->errorMessage = $errorMessage;
     }
 
 }

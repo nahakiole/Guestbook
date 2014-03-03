@@ -36,7 +36,7 @@ class Router
                 return $controller;
             }
         }
-        throw new PageNotFoundException("Not Page under $this->requestURI found");
+        throw new PageNotFoundException("No Page under $this->requestURI found");
     }
 
     /**

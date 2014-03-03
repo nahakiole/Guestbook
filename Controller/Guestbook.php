@@ -5,6 +5,8 @@ namespace Controller;
 use DI\ContainerBuilder;
 use DI\NotFoundException;
 use Exception\ControllerException;
+use Exception\PageNotFoundException;
+use Exception\ServerErrorException;
 
 class Guestbook
 {
@@ -21,11 +23,16 @@ class Guestbook
             $controller = $this->container->get($router->getControllerName());
             $method = $router->getControllerMethod($controller);
             $view = $this->getView($controller, $method);
-        } catch (ControllerException $e) {
-            echo $e->getFile().":".$e->getLine();
+        } catch (PageNotFoundException $e) {
+            //echo $e->getFile().":".$e->getLine();
             $view = $this->getView($this->container->get($e->getController()), $e->getAction());
+        } catch (ServerErrorException $e) {
+            //echo $e->getFile().":".$e->getLine();
+            $controller = $this->container->get($e->getController());
+            $controller->setErrorMessage($e->getMessage());
+            $view = $this->getView($controller, $e->getAction());
         } catch (NotFoundException $e) {
-            echo $e->getFile().":".$e->getLine();
+            //echo $e->getFile().":".$e->getLine();
             $view = $this->getView($this->container->get('Error'), 'notFound');
         }
         echo $view->render();
