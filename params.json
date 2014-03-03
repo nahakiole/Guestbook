@@ -1,0 +1,1 @@
+{"name":"Guestbook","tagline":"A really simple guestbook.","body":"Guestbook\r\n=========\r\n\r\nA simple guestbook.\r\n\r\n## Installation:\r\n1. Create MySQL Database\r\n2. Import guestbook.sql into Database\r\n3. Change credentials for MySQL in config.php","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
