@@ -1,5 +1,6 @@
 {
     "require": {
-        "mnapoli/php-di": "~4.0"
+        "mnapoli/php-di": "~4.0",
+        "symfony/yaml": "2.3.11"
     }
 }

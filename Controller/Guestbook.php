@@ -18,7 +18,7 @@ class Guestbook
         $containerBuilder->addDefinitions('config.php');
         $containerBuilder->addDefinitions('services.php');
         $this->container = $containerBuilder->build();
-        $router = new Router('routes.php');
+        $router = new Router();
         try {
             $controller = $this->container->get($router->getControllerName());
             $method = $router->getControllerMethod($controller);

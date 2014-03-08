@@ -5,6 +5,8 @@ namespace Controller;
 
 
 use Exception\PageNotFoundException;
+use Model\Entity\Route;
+use Symfony\Component\Yaml\Yaml;
 
 class Router
 {
@@ -16,10 +18,10 @@ class Router
     private $controllerName;
     private $actionName;
 
-    public function __construct($file)
+    public function __construct()
     {
-        $file = require $file;
-        $this->routingTable = array_merge($file, $this->routingTable);
+        $routes = Yaml::parse('routing.yaml');
+        $this->routingTable = $routes['routes'];
         $this->requestURI = $_SERVER['REQUEST_URI'];
     }
 
@@ -30,6 +32,7 @@ class Router
     public function getControllerName()
     {
         foreach ($this->routingTable as $route) {
+            $route = new Route($route['match'],$route['controller'],$route['action']);
             $controller = $route->matchesRoute($this->requestURI);
             if ($controller){
                 $this->actionName = $route->method;

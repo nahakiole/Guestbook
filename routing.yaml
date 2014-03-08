@@ -1,0 +1,37 @@
+routes:
+  - match: '/^\/$/'
+    controller: '\Controller\Comment'
+    action: 'Overview'
+    
+    
+  - match: '/^\/Test$/'
+    controller: '\Controller\Comment'
+    action: 'Overview'
+
+  - match: '/^\/Overview$/'
+    controller: '\Controller\Comment'
+    action: 'Overview'
+
+  - match: '/^\/Comment\/Json/'
+    controller: '\Controller\Comment'
+    action: 'jsonAddComment'
+
+  - match: '/^\/Comment\/New/'
+    controller: '\Controller\Comment'
+    action: 'checkForNewComments'
+
+  - match: '/^\/User\/Login/'
+    controller: '\Controller\User'
+    action: 'userLogin'
+
+  - match: '/^\/Error\/404/'
+    controller: '\Controller\Error'
+    action: 'notFound'
+
+  - match: '/^\/Error\/500/'
+    controller: '\Controller\Error'
+    action: 'serverError'
+
+  - match: '/^\/[A-Za-z0-9]/'
+    controller: '\Controller\StaticPage'
+    action: 'showPage'
