@@ -6,10 +6,12 @@ namespace Controller;
 use Exception\PageNotFoundException;
 use Exception\ServerErrorException;
 use Model\Entity\Field;
+use Model\Repository\CommentRepository;
 use Model\Repository\Filter;
 use View\BootstrapGenerator;
 use View\HTMLForm;
 use View\HTMLTemplate;
+use View\HTMLView;
 use View\JavascriptView;
 
 class Comment extends Controller
@@ -21,7 +23,7 @@ class Comment extends Controller
     public $db;
 
     /**
-     * @var \Model\Repository\Comment
+     * @var CommentRepository
      */
     private $commentRepository;
 
@@ -37,7 +39,7 @@ class Comment extends Controller
 
     public function Overview()
     {
-        $this->template = new \View\HTMLView('View/Templates/index.html');
+        $this->template = new HTMLView('View/Templates/index.html');
         $this->template->template->setVariable(
             [
                 'SITE_TITLE' => 'Willkommen auf meinem Gästebuch',
@@ -45,7 +47,7 @@ class Comment extends Controller
             ]
         );
         $this->template->addTemplate(
-            'COMMENTS', new HTMLTemplate('View/Templates/comment.html')
+            'CONTENT', new HTMLTemplate('View/Templates/comment.html')
         );
         $commentForm = $this->getCommentForm();
         $this->template->addTemplate('COMMENT_FORM', $commentForm);
@@ -54,7 +56,7 @@ class Comment extends Controller
             $commentForm->clearValues();
         }
 
-        $commentRepository = new \Model\Repository\Comment($this->db);
+        $commentRepository = new CommentRepository($this->db);
         $comments = $commentRepository->findAll();
         if (count($comments) !== 0) {
             $this->template->addTemplate(
@@ -116,12 +118,11 @@ class Comment extends Controller
 
     public function checkForNewComments()
     {
-        set_time_limit(10);
-        $commentForm = $this->getCommentForm();
         $this->template = new JavascriptView();
-        $this->commentRepository = new \Model\Repository\Comment($this->db);
+        $this->commentRepository = new CommentRepository($this->db);
         $after = isset($_GET['after']) ?  intval($_GET['after']) : date('U');
         $comments = $this->getCommentsSince($after);
+        $render = '';
         if (count($comments) > 0) {
             $commentHTML
                 = new HTMLTemplate('View/Templates/single_comment.html');
@@ -190,7 +191,7 @@ class Comment extends Controller
     /**
      * @param $after
      *
-     * @return mixed
+     * @return \Model\Entity\Comment[]
      */
     public function getCommentsSince($after){
         $comments = $this->commentRepository->findByFilter([

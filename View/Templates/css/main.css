@@ -26,34 +26,36 @@ p {
 
 .single-comment {
     padding-top: 10px;
-    -webkit-transition: 0.2s background, 0.2s -webkit-transform;
-    -moz-transition: 0.2s background, 0.2s -moz-transform;
-    -ms-transition: 0.2s background, 0.2s -ms-transform;
-    -o-transition: 0.2s background, 0.2s -o-transform;
-    transition: 0.2s background,0.2s transform;
+    -webkit-transition: 0.5s background, 0.2s -webkit-transform, 0.5s box-shadow, 0.5s opacity;
+    -moz-transition: 0.5s background, 0.2s -moz-transform, 0.5s box-shadow, 0.5s opacity;
+    -ms-transition: 0.5s background, 0.2s -ms-transform, 0.5s box-shadow, 0.5s opacity;
+    -o-transition: 0.5s background, 0.2s -o-transform, 0.5s box-shadow, 0.5s opacity;
+    transition: 0.5s background,0.2s transform, 0.5s box-shadow, 0.5s opacity;
 }
 
 .single-comment.ui-draggable-dragging {
+    background: #fff;
     border-radius: 5px;
     z-index: 10;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 .trash {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 15px;
 }
 
 .single-comment.ui-draggable-dragging.remove {
     background: rgb(238, 95, 87);
-    box-shadow: 0 0 10px rgb(238, 95, 87);
+    box-shadow: 0 0 20px rgb(238, 95, 87);
     color: #fff;
-    -webkit-transform: scale(0.6, 0.6);
-    -moz-transform: scale(0.6, 0.6);
-    -ms-transform: scale(0.6, 0.6);
-    -o-transform: scale(0.6, 0.6);
-    transform: scale(0.6, 0.6);
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 0.9;
 }
 
 .single-comment.ui-draggable-dragging.remove a {
@@ -61,10 +63,11 @@ p {
 }
 
 .single-comment.ui-draggable-dragging.remove.really {
-    -webkit-transform: scale(0.01);
-    -moz-transform: scale(0.01);
-    -ms-transform: scale(0.01);
-    -o-transform: scale(0.01);
-    transform: scale(0.01);
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    -o-transform: scale(0.1);
+    transform: scale(0.1);
 }
 

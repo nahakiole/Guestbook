@@ -10,19 +10,18 @@ jQuery(function () {
         activeClass: "ui-state-highlight",
         greedy: true,
         tolerance: "touch",
-        over: function( event, ui ) {
+        over: function (event, ui) {
             console.log(ui);
             jQuery(ui.draggable).addClass('remove');
         },
-        out: function( event, ui ) {
+        out: function (event, ui) {
             jQuery(ui.draggable).removeClass('remove');
         },
-        drop: function( event, ui ) {
+        drop: function (event, ui) {
             jQuery(ui.draggable).addClass('really');
-            jQuery( ui.draggable).bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
+            jQuery(ui.draggable).bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
                 ui.draggable.remove();
             });
-//
         }
     });
 
@@ -44,14 +43,14 @@ jQuery(function () {
 
     var now = new Date();
     updateDate();
-    function updateDate(){
+    function updateDate() {
         jQuery.ajax({
-            url: '/Comment/New?after='+now.getTime()/1000,
+            url: '/Comment/New?after=' + now.getTime() / 1000,
             type: "POST",
             cache: false,
             dataType: "script",
             success: function (data) {
-                if (data != ''){
+                if (data != '') {
                     now = new Date();
                 }
                 updateDate();

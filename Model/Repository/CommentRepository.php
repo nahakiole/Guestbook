@@ -3,12 +3,14 @@
 namespace Model\Repository;
 
 
-class Comment extends Repository
+use Model\Factory\CommentFactory;
+
+class CommentRepository extends Repository
 {
 
     public function __construct($database){
         parent::__construct($database);
-        $this->factory = new \Model\Factory\Comment();
+        $this->factory = new CommentFactory();
     }
 
     /**
@@ -49,7 +51,7 @@ class Comment extends Repository
     /**
      * @param $filter \Model\Repository\Filter[]
      *
-     * @return \Model\Entity\Comment
+     * @return \Model\Entity\Comment[]
      */
     public function findByFilter($filter)
     {

@@ -3,14 +3,15 @@
 namespace Model\Factory;
 
 
+use Model\Entity\Comment;
 use Model\Entity\Field;
 
-class Comment extends Factory
+class CommentFactory extends Factory
 {
 
     function build($data)
     {
-        return new \Model\Entity\Comment(
+        return new Comment(
             new Field('Name', Field::TYPE_TEXT, null, true, $data['name']),
             new Field('Ort', Field::TYPE_TEXT, null, true, $data['place']),
             new Field('Email', Field::TYPE_EMAIL, FILTER_VALIDATE_EMAIL, true, $data['mail']),
